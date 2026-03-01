@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '@/store/authSlice'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet'
 import AdminCartContent from './admin-cart-content'
-import { checkout, deleteteCartItems, getCartItems, updateCartItems } from '@/store/admin/cartSlice'
+import { checkout, deleteCartItems, getCartItems, updateCartItems } from '@/store/admin/cartSlice'
 
 
 const AdminHearder = ({ setOpen }) => {
@@ -20,10 +20,6 @@ const AdminHearder = ({ setOpen }) => {
         return sum + (currentItem?.price * currentItem?.quantity)
 
     }, 0) : 0
-
-    console.log(cartItems, "abheeee")
-
-    console.log(totalAmount, "total amount")
 
     function handleLogout() {
         dispatch(logoutUser())
@@ -55,7 +51,9 @@ const AdminHearder = ({ setOpen }) => {
 
     const handleDeleteCartItem = (getCartItems) => {
 
-        dispatch(deleteteCartItems({
+        console.log(getCartItems.productId,"item to be deleted")
+        console.log(user._id,"item to be deleted")
+        dispatch(deleteCartItems({
             productId: getCartItems.productId,
             userId: user._id
         })).then(data => {
@@ -80,7 +78,7 @@ const AdminHearder = ({ setOpen }) => {
     useEffect(() => {
 
         console.log(user._id, "usestate")
-        dispatch(getCartItems(user._id)).then(data => console.log(data))
+        dispatch(getCartItems({userId : user._id})).then(data => console.log(data,"cart items response"))
 
     }, [dispatch, user._id])
 

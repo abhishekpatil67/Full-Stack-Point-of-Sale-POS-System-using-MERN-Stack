@@ -31,11 +31,9 @@ export const addToCart = createAsyncThunk("/admin/api/cart/add-to-cart", async (
 })
 
 
-export const getCartItems = createAsyncThunk("/admin/api/cart/get-cart-items", async ({ userId }, { rejectWithValue }) => {
+export const getCartItems = createAsyncThunk("/admin/api/cart/get-cart-items", async ({userId}, { rejectWithValue }) => {
 
     try {
-
-        console.log(userId)
         const response = await axios.get(`http://localhost:5000/admin/api/cart/get-cart-items/${userId}`, {
             withCredentials: true
         })
@@ -74,11 +72,10 @@ export const updateCartItems = createAsyncThunk("/admin/api/cart/update-cart", a
     }
 })
 
-export const deleteteCartItems = createAsyncThunk("/admin/api/cart/delete-cart", async ({ productId, userId }, { rejectWithValue }) => {
+export const deleteCartItems = createAsyncThunk("/admin/api/cart/delete-cart", async ({ productId, userId }, { rejectWithValue }) => {
 
+    console.log(userId,productId,"deleted")
     try {
-
-        console.log(productId,userId)
         const response = await axios.delete("http://localhost:5000/admin/api/cart/delete-cart",{productId,userId}, {
             withCredentials: true
         })
@@ -148,12 +145,12 @@ const adminCartSlice = createSlice({
         }).addCase(updateCartItems.rejected, (state, action) => {
             state.isLoading = false,
                 console.log(action)
-        }).addCase(deleteteCartItems.pending, (state) => {
+        }).addCase(deleteCartItems.pending, (state) => {
             state.isLoading = true
-        }).addCase(deleteteCartItems.fulfilled, (state, action) => {
+        }).addCase(deleteCartItems.fulfilled, (state, action) => {
             state.isLoading = false,
                 state.cartItems = action.payload.data.items
-        }).addCase(deleteteCartItems.rejected, (state) => {
+        }).addCase(deleteCartItems.rejected, (state) => {
             state.isLoading = false
         }).addCase(checkout.pending, (state) => {
             state.isLoading = true

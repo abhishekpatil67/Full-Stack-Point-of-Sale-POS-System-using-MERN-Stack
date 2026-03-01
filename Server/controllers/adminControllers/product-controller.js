@@ -80,7 +80,7 @@ export const getProductController = async (req, res) => {
     try {
 
         const productList = await Product.find({})
-        return (res.status(200).json({ success: true, data: productList }))
+        return (res.status(200).json({ success: true, data: productList}))
 
     } catch (error) {
         console.log(error)
@@ -167,7 +167,6 @@ export const editProductController = async (req, res) => {
             return (res.status(400).json({ success: false, message: "no product found with the given id" }))
 
         }
-
 
         result.title = title ? title : result.title
         result.description = description ? description : result.description

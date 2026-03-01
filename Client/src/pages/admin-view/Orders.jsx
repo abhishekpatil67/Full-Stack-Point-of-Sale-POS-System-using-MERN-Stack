@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Fragment } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { OrderProductTile } from '@/components/admin-view/cart-order-tile'
+import { getAllProducts } from '@/store/admin/productSlice'
 
 const AdminOrders = () => {
-
   const { productList } = useSelector(state => state.adminProducts)
+  const {user} = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    
+    dispatch(getAllProducts(user._id))
+  
+  }, [dispatch,user._id])
+  
   
   return (
     <Fragment>

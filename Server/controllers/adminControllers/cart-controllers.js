@@ -43,7 +43,9 @@ export const AddToCart = async (req, res) => {
             select: "image title price salesPrice quantity"
         })
 
-        const populatedCartItems = cart.items.map(item => ({
+        console.log(cart,"cart")
+
+        const populatedCartItems = await cart.items.map(item => ({
             productId: item.productId._id,
             image: item.productId.image,
             title: item.productId.title,
@@ -68,7 +70,7 @@ export const AddToCart = async (req, res) => {
     } catch (error) {
 
         console.log(error)
-        return (res.status(500).json({ success: true, message: "Something went wrong" }))
+        return (res.status(500).json({ success: false, message: "Something went wrong" }))
 
     }
 
@@ -190,9 +192,6 @@ export const updateCart = async (req, res) => {
             quantity: item.quantity
         }))
 
-        console.log(populatedCartItems, "updatated controller")
-
-
         return (res.status(200).json({
             success: true,
             data: {
@@ -215,10 +214,9 @@ export const updateCart = async (req, res) => {
 
 export const deleteCartItem = async (req, res) => {
 
-    // console.log(userId,productId)
-    console.log(req.body)
-    const { userId, productId } = req.body
-    if (!userId) {
+    console.log(req.body ,"body")
+    const { userId,productId} = req.body
+    if (!userId || !productId) {
         return (res.status(400).json({ success: false, message: "user id is mondatory" }))
     }
 

@@ -7,19 +7,19 @@ export const productSchema = z.object({
     description: z.string(),
     category: z.string(),
     brand: z.string(),
-    price: z.string(),
-    salesPrice: z.string(),
-    totalStock: z.string(),
+    price:z.number(),
+    salesPrice:z.number(),
+    totalStock: z.number()
 
 })
-export const editProductSchema = z.object({
 
+export const editProductSchema = z.object({
     title: z.string(),
     description: z.string(),
     category: z.string(),
     brand: z.string(),
-    price: z.number(),
-    salesPrice: z.number(),
-    totalStock: z.string(),
+    price:z.number(),
+    salesPrice:z.number(),
+    totalStock:z.number(),
 })
 

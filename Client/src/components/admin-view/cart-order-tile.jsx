@@ -22,7 +22,8 @@ export function OrderProductTile({ product }) {
                     action: {
                         label: "Ok",
                     },
-                })
+                }
+            )
             }
         })
     }

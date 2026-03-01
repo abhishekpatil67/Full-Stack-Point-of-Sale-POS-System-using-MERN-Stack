@@ -24,6 +24,7 @@ const Form = ({ formControls, formData, setFormData, buttonText, handleSubmit, i
         let value = formData[formItem.name]
 
         switch (formItem.componentType) {
+
             case "input":
 
                 element = (<Input
@@ -34,12 +35,14 @@ const Form = ({ formControls, formData, setFormData, buttonText, handleSubmit, i
                     placeholder={formItem.placeholder}
                     className={formItem.className ? formItem.className : ""}
                     value={value}
-                    onChange={(e) => {
-                        setFormData({
-                            ...formData,
-                            [formItem.name]: e.target.value
-                        })
-                    }}
+                    onChange={(e) => 
+                  
+                            setFormData({
+                                ...formData,
+                                [formItem.name]: e.target.value
+                            })
+                        }
+
 
                 />)
 
@@ -136,7 +139,7 @@ const Form = ({ formControls, formData, setFormData, buttonText, handleSubmit, i
 
                 })
             }
-           <Button type="submit"  className="w-full cursor-pointer bg-blue-700 transition-colors hover:bg-blue-900 flex justify-center items-center m-auto gap-2 pt-2 p-2">{buttonText ? buttonText.toUpperCase() : "submit"}</Button>
+            <Button type="submit" className="w-full cursor-pointer bg-blue-700 transition-colors hover:bg-blue-900 flex justify-center items-center m-auto gap-2 pt-2 p-2">{buttonText ? buttonText.toUpperCase() : "submit"}</Button>
         </form>
     )
 }

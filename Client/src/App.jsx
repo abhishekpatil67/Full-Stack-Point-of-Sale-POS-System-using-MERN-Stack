@@ -22,18 +22,15 @@ function App() {
   const dispatch = useDispatch()
   const { user, isAuthenticated, isLoading } = useSelector(state => state.auth)
 
-
   useEffect(() => {
-
     dispatch(checkLoggedIn())
-    dispatch(getCartItems())
-
-  }, [dispatch])
-
-
+    dispatch(getCartItems(user?._id))
+  }, [dispatch, user?._id])
+  
   if (isLoading) {
     return <div>Loading</div>
   }
+
 
 
   return (

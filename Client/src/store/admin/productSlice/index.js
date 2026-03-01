@@ -15,7 +15,7 @@ export const getAllProducts = createAsyncThunk("/admin/api/products/get-products
         const response = await axios.get("http://localhost:5000/admin/api/products/get-products")
         
         console.log(response.data);
-        return (response.data)
+        return (response?.data)
 
     } catch (error) {
 
@@ -113,6 +113,7 @@ const AdminProductSlice = createSlice({
         buider.addCase(getAllProducts.pending, (state) => {
             state.isLoading = true;
         }).addCase(getAllProducts.fulfilled, (state, action) => {
+            console.log(action.payload.data,"get products")
             state.productList = action?.payload?.data
             state.isLoading = false
         }).addCase(getAllProducts.rejected, (state) => {

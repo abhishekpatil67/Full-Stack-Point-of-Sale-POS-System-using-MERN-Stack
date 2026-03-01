@@ -32,40 +32,53 @@ const AdminProducts = () => {
   const { productList } = useSelector(state => state.adminProducts)
   const dispatch = useDispatch()
 
-
+  console.log(productList, "productlist")
 
   function handleCreateProduct(event) {
-
     event.preventDefault();
-
-    console.log(formData,"main data")
-
     currentEditedId !== null ?
-      dispatch(editProduct({ id: currentEditedId, formData })
-    ).then((data) => {
-        console.log(data,"edited Product")
+      dispatch(editProduct({
+        id: currentEditedId,
+        formData: {
+          image: formData.image,
+          title: formData.title,
+          description: formData.description,
+          category: formData.category,
+          brand: formData.brand,
+          price: Number(formData.price),
+          salesPrice: Number(formData.salesPrice),
+          totalStock: Number(formData.totalStock)
 
+        }
+      })
+      ).then((data) => {
+        console.log(data, "edited Product")
         if (data.payload.success) {
-          dispatch(getAllProducts())
           setopenCreateProuductDialog(false)
           setFormData(initialFormData)
           setCurrentEditedId(null)
-          toast({
-            title: "Product Product Edited Successfully"
-          })
+          dispatch(getAllProducts())
+          toast(data.payload.message, {
+                    action: {
+                        label: "Ok",
+                    },
+                })
+
         }
       })
       :
-      dispatch(createProduct({ ...formData, image: uploadedImageUrl })
+      dispatch(createProduct({ ...formData, image: uploadedImageUrl, salesPrice: Number(formData.salesPrice), price: Number(formData.price), totalStock: formData.totalStock })
       ).then((data) => {
         if (data.payload.success) {
           dispatch(getAllProducts())
           setopenCreateProuductDialog(false)
           setImageFile(null)
           setFormData(initialFormData)
-          toast({
-            title: "Product Added Successfully"
-          })
+          toast(data.payload.message, {
+                    action: {
+                        label: "Ok",
+                    },
+                })
         }
       })
 

@@ -53,7 +53,6 @@ export const registersControls = [
 ]
 
 
-
 export const createProductFormConfig = [
     {
         componentType: "input",
