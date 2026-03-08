@@ -1,4 +1,5 @@
 
+import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -43,7 +44,7 @@ const VerifyEmail = () => {
 
     return (
         <>
-            <div className='flex flex-col bg-[#FFBDEC] text-center  items-center w-1/2 p-6 gap-8'>
+            <div className='flex flex-col  text-center  items-center lg:w-1/2 w-full p-6 gap-8'>
 
 
                 <div className="text-center pt-8 flex gap-2 flex-col">
@@ -53,16 +54,16 @@ const VerifyEmail = () => {
                 </div>
 
                 <div><h2 className='font-medium text-center'>Verify Email</h2></div>
-                <div><h2 className='font-medium text-center'>{verificationMessage}</h2></div>
+                <div className='h-[30%] flex-col items-center justify-center'><h2 className='font-medium text-center'>{verificationMessage}</h2></div>
 
                 {
                     isVerified ?
-                        <button
+                        <Button
                             onClick={() => navigate("/auth/login")}
-                            className='bg-[#118AB2] disabled:bg-[#19596e] px-2 py-1 rounded-sm cursor-pointer border border-[#03141a]'>Login</button>
-                        : <button
+                            className="w-full cursor-pointer bg-blue-700 transition-colors hover:bg-blue-900 flex justify-center items-center mx-auto gap-2 pt-2 p-2">Login</Button>
+                        : <Button
                             onClick={() => navigate("/auth/register")}
-                            className='bg-[#118AB2] disabled:bg-[#19596e] px-2 py-1 rounded-sm cursor-pointer border border-[#03141a]'>Try Again</button>
+                            className="w-full cursor-pointer bg-blue-700 transition-colors hover:bg-blue-900 flex justify-center items-center mx-auto gap-2 pt-2 p-2">Try Again</Button>
                 }
             </div>
         </>

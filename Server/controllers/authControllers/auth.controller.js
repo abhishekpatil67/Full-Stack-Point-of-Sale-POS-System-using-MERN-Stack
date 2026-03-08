@@ -5,10 +5,6 @@ import { createAccessToken, createRefreshToken } from "../../lib/token.js";
 import { sendEmail } from "../../lib/Email.js";
 import jwt from "jsonwebtoken"
 import crypto from "crypto"
-import { success } from "zod";
-
-
-
 
 function getAppUrl() {
 
@@ -195,8 +191,11 @@ export async function forgotPasswordHandler(req, res) {
 
     const { email } = req.body;
 
-    const user = await User.findOne({ email: email })
+    console.log(email,"forgot-password");
+    
+    const user = await User.findOne({ email: email }).select("+userName")
 
+    console.log(user,"user")
     if (!user) {
         return (res.status(404).json({ success: false, message: "if an account exists with this account we will sent a email..." }))
     }
@@ -235,6 +234,8 @@ export async function forgotPasswordHandler(req, res) {
 export async function resetPasswordHandler(req, res) {
 
     const { token, password } = req.body;
+    console.log("request received !")
+    console.log("password : ",password,"token : ", token)
 
     if (!token) {
         return (res.status(404).json({ success: false, message: "something went wrong. Try again later" }))
@@ -244,13 +245,11 @@ export async function resetPasswordHandler(req, res) {
 
         const hashedToken = crypto.createHash("sha256").update(token).digest("hex")
 
-        console.log(hashedToken)
-
-        const user = await User.findOne({ resetPasswordToken: hashedToken })
+        const user = await User.findOne({resetPasswordToken: hashedToken })
         console.log(user)
 
         if (!user) {
-            return (res.status(404).json({ success: false, message: "something went wrong. Try again later x2" }))
+            return (res.status(404).json({ success: false, message: "Password Session Has Been Expired!" }))
         }
 
         const hashedPass = await createHash(password)

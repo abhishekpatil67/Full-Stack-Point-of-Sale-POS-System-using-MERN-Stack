@@ -52,7 +52,6 @@ export const loginUser = createAsyncThunk("/auth/login", async (formData, { reje
 
 })
 
-
 export const registerUser = createAsyncThunk("/auth/register", async (formData, { rejectWithValue }) => {
 
   try {
@@ -93,6 +92,51 @@ export const logoutUser = createAsyncThunk("/auth/logout", async (_, { rejectWit
 
   }
 })
+
+
+export const forgotPasswordThunk = createAsyncThunk("/auth/forgot-password", async (formData, { rejectWithValue }) => {
+
+  try {
+
+    const response = await axios.post("http://localhost:5000/auth/forgot-password", formData, { withCredentials: true }
+    )
+    return response.data
+
+  } catch (error) {
+
+    console.log(error.response.data.message)
+    console.log(error.response.data.success)
+
+    return rejectWithValue({
+      message: error.response.data.message,
+      success: error.response.data.success
+    })
+
+  }
+})
+
+export const resetPasswordThunk = createAsyncThunk("/auth/reset-password", async ({password,token}, { rejectWithValue }) => {
+
+  try {
+    console.log(password,"reset pass")
+    const response = await axios.post("http://localhost:5000/auth/reset-password", {password,token}, { withCredentials: true }
+    )
+    return response.data
+
+  } catch (error) {
+
+    console.log(error.response.data.message)
+    console.log(error.response.data.success)
+
+    return rejectWithValue({
+      message: error.response.data.message,
+      success: error.response.data.success
+    })
+
+  }
+})
+
+
 
 const authSlice = createSlice({
 
@@ -170,6 +214,25 @@ const authSlice = createSlice({
         state.isLoading = false,
         state.user = null
     })
+
+    builder.addCase(forgotPasswordThunk.pending, (state) => {
+      state.isLoading = true
+    }).addCase(forgotPasswordThunk.fulfilled, (state) => {
+        state.isLoading = false
+    }).addCase(forgotPasswordThunk.rejected, (state) => {
+        state.isLoading = false
+    })
+
+       builder.addCase(resetPasswordThunk.pending, (state) => {
+      state.isLoading = true
+    }).addCase(resetPasswordThunk.fulfilled, (state) => {
+        state.isLoading = false
+    }).addCase(resetPasswordThunk.rejected, (state) => {
+        state.isLoading = false
+    })
+
+
+
   })
 
 })

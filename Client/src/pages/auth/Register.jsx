@@ -37,7 +37,7 @@ const Register = () => {
 
   return (
     <>
-      <div className='flex flex-col text-center items-center bg-muted w-1/2 py-6 gap-8'>
+      <div className='flex flex-col text-center items-center bg-muted lg:w-1/2 w-full py-6 gap-8'>
 
 
         <div className="text-center pt-8 flex gap-2 flex-col">

@@ -15,6 +15,8 @@ import { checkLoggedIn } from './store/authSlice'
 import { useEffect } from 'react'
 import Listing from './pages/shopping-view/Listing'
 import { getCartItems } from './store/admin/cartSlice'
+import ForgotPassword from './pages/auth/forgot-password'
+import ResetPassword from './pages/auth/reset-password'
 
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
           </CheckAuth>
         }>
           <Route path='login' element={<Login />} />
+          <Route path='forgot-password' element={<ForgotPassword />} />
+          <Route path='reset-password' element={<ResetPassword />} />
           <Route path='register' element={<Register />} />
           <Route path='verify-email' element={<VerifyEmail />} />
         </Route>

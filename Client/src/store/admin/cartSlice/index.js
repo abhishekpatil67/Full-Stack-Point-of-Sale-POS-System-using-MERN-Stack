@@ -76,7 +76,8 @@ export const deleteCartItems = createAsyncThunk("/admin/api/cart/delete-cart", a
 
     console.log(userId,productId,"deleted")
     try {
-        const response = await axios.delete("http://localhost:5000/admin/api/cart/delete-cart",{productId,userId}, {
+        const response = await axios.delete("http://localhost:5000/admin/api/cart/delete-cart",{
+            data: { productId, userId },
             withCredentials: true
         })
 

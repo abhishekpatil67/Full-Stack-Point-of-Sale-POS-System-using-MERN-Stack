@@ -3,32 +3,40 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { fetchAllOrders } from '@/store/admin/orderSlice';
 import React from 'react'
-import { useEffect, useState }from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Orders() {
 
-
     const [selectedOrder, setSelectedOrder] = useState(null);
     const dispatch = useDispatch()
-    const {user} = useSelector(state=>state.auth)
-    const {isLoading,orderList} = useSelector(state=>state.orderSlice)
+    const { user } = useSelector(state => state.auth)
+    const { isLoading, orderList } = useSelector(state => state.orderSlice)
 
     useEffect(() => {
-       
+
         dispatch(fetchAllOrders(user?._id))
 
-    }, [dispatch,user?._id]);
+    }, [dispatch, user?._id]);
 
-    if(isLoading)
-    {
+    const handlePrintBill = (printableOrder) => {
+        console.log(printableOrder,"printing");
+        window.open(
+            `http://localhost:5000/admin/api/bill/${printableOrder?._id}`,
+            "_blank"
+        );
+
+    }
+
+    if (isLoading) {
         return <div>Loading Orders</div>
     }
 
-    console.log(orderList,"dashboard page")
+    console.log(orderList, "dashboard page")
 
-    
+
     return (
 
         <div className="p-6">
@@ -58,151 +66,153 @@ export default function Orders() {
                 <TableBody>
 
                     {orderList && orderList.length > 0 ?
-                    orderList.map((order) => (
+                        orderList.map((order) => (
 
-                        <TableRow key={order._id}>
+                            <TableRow key={order._id}>
 
-                            <TableCell>
-                                {order.orderNumber}
-                            </TableCell>
+                                <TableCell>
+                                    {order.orderNumber}
+                                </TableCell>
 
-                            <TableCell>
-                                {new Date(order.createdAt)
-                                    .toLocaleString()}
-                            </TableCell>
+                                <TableCell>
+                                    {new Date(order.createdAt)
+                                        .toLocaleString()}
+                                </TableCell>
 
-                            <TableCell>
-                                ₹{order.totalAmount}
-                            </TableCell>
+                                <TableCell>
+                                    ₹{order.totalAmount}
+                                </TableCell>
 
-                            <TableCell>
+                                <TableCell>
 
-                                <Dialog>
+                                    <Dialog>
 
-                                    <DialogTrigger asChild>
+                                        <DialogTrigger asChild>
 
-                                        <Button
-                                            onClick={() =>
-                                                setSelectedOrder(order)
-                                            }
-                                        >
-                                            Details
-                                        </Button>
+                                            <Button
+                                                onClick={() =>
+                                                    setSelectedOrder(order)
+                                                }
+                                            >
+                                                Details
+                                            </Button>
 
-                                    </DialogTrigger>
+                                        </DialogTrigger>
 
-                                    <DialogContent>
+                                        <DialogContent>
 
-                                        <DialogHeader>
+                                            <DialogHeader>
 
-                                            <DialogTitle>
-                                                Order Details
-                                            </DialogTitle>
+                                                <DialogTitle>
+                                                    Order Details
+                                                </DialogTitle>
 
-                                        </DialogHeader>
+                                            </DialogHeader>
 
-                                        {selectedOrder && (
+                                            {selectedOrder && (
 
-                                            <div>
+                                                <div>
 
-                                                <p>
-                                                    Order Number:
-                                                    {" "}
-                                                    {selectedOrder.orderNumber}
-                                                </p>
+                                                    <p>
+                                                        Order Number:
+                                                        {" "}
+                                                        {selectedOrder.orderNumber}
+                                                    </p>
 
-                                                <p>
-                                                    Date:
-                                                    {" "}
-                                                    {new Date(
-                                                        selectedOrder.createdAt
-                                                    ).toLocaleString()}
-                                                </p>
+                                                    <p>
+                                                        Date:
+                                                        {" "}
+                                                        {new Date(
+                                                            selectedOrder.createdAt
+                                                        ).toLocaleString()}
+                                                    </p>
 
-                                                <p className="font-bold mt-2">
-                                                    Items:
-                                                </p>
+                                                    <p className="font-bold mt-2">
+                                                        Items:
+                                                    </p>
 
-                                                <Table>
+                                                    <Table>
 
-                                                    <TableHeader>
+                                                        <TableHeader>
 
-                                                        <TableRow>
+                                                            <TableRow>
 
-                                                            <TableHead>
-                                                                Product
-                                                            </TableHead>
+                                                                <TableHead>
+                                                                    Product
+                                                                </TableHead>
 
-                                                            <TableHead>
-                                                                Qty
-                                                            </TableHead>
+                                                                <TableHead>
+                                                                    Qty
+                                                                </TableHead>
 
-                                                            <TableHead>
-                                                                Price
-                                                            </TableHead>
+                                                                <TableHead>
+                                                                    Price
+                                                                </TableHead>
 
-                                                            <TableHead>
-                                                                Total
-                                                            </TableHead>
+                                                                <TableHead>
+                                                                    Total
+                                                                </TableHead>
 
-                                                        </TableRow>
+                                                            </TableRow>
 
-                                                    </TableHeader>
+                                                        </TableHeader>
 
-                                                    <TableBody>
+                                                        <TableBody>
 
-                                                        {selectedOrder.items.map(
-                                                            (item, index) => (
+                                                            {selectedOrder.items.map(
+                                                                (item, index) => (
 
-                                                                <TableRow key={index}>
+                                                                    <TableRow key={index}>
 
-                                                                    <TableCell>
-                                                                        {item.title}
-                                                                    </TableCell>
+                                                                        <TableCell>
+                                                                            {item.title}
+                                                                        </TableCell>
 
-                                                                    <TableCell>
-                                                                        {item.quantity}
-                                                                    </TableCell>
+                                                                        <TableCell>
+                                                                            {item.quantity}
+                                                                        </TableCell>
 
-                                                                    <TableCell>
-                                                                        ₹{item.price}
-                                                                    </TableCell>
+                                                                        <TableCell>
+                                                                            ₹{item.price}
+                                                                        </TableCell>
 
-                                                                    <TableCell>
-                                                                        ₹{item.subtotal}
-                                                                    </TableCell>
+                                                                        <TableCell>
+                                                                            ₹{item.subtotal}
+                                                                        </TableCell>
 
-                                                                </TableRow>
+                                                                    </TableRow>
 
-                                                            )
-                                                        )}
+                                                                )
+                                                            )}
 
-                                                    </TableBody>
+                                                        </TableBody>
 
-                                                </Table>
+                                                    </Table>
 
-                                                <p className="font-bold mt-4">
+                                                    <p className="font-bold mt-4">
 
-                                                    Total: ₹
-                                                    {selectedOrder.totalAmount}
+                                                        Total: ₹
+                                                        {selectedOrder.totalAmount}
 
-                                                </p>
+                                                    </p>
 
-                                            </div>
+                                                    <Button onClick={() => handlePrintBill(selectedOrder)} className="mt-3 w-full">Print</Button>
+                                                </div>
 
-                                        )}
 
-                                    </DialogContent>
+                                            )}
 
-                                </Dialog>
+                                        </DialogContent>
 
-                            </TableCell>
+                                    </Dialog>
 
-                        </TableRow>
+                                </TableCell>
 
-                    )) : <div>No Orders To Show</div>
-                
-                }
+                            </TableRow>
+
+                        )) : <div>No Orders To Show</div>
+
+                    }
 
                 </TableBody>
 

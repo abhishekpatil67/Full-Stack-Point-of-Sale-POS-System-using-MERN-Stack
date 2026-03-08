@@ -51,8 +51,8 @@ const AdminHearder = ({ setOpen }) => {
 
     const handleDeleteCartItem = (getCartItems) => {
 
-        console.log(getCartItems.productId,"item to be deleted")
-        console.log(user._id,"item to be deleted")
+        console.log(getCartItems.productId, "item to be deleted")
+        console.log(user._id, "item to be deleted")
         dispatch(deleteCartItems({
             productId: getCartItems.productId,
             userId: user._id
@@ -65,12 +65,14 @@ const AdminHearder = ({ setOpen }) => {
         dispatch(checkout({ userId: user._id })).then((data) => {
             console.log(data, "checoutres")
             if (data.payload.success) {
+                dispatch(getCartItems({ userId: user._id }))
+                setOpenAddToCartSheet(false)
                 window.open(
                     `http://localhost:5000/admin/api/bill/${data.payload.orderId}`,
                     "_blank"
                 );
             }
-        }).catch((error)=>{
+        }).catch((error) => {
             console.log(error)
         })
     }
@@ -78,7 +80,7 @@ const AdminHearder = ({ setOpen }) => {
     useEffect(() => {
 
         console.log(user._id, "usestate")
-        dispatch(getCartItems({userId : user._id})).then(data => console.log(data,"cart items response"))
+        dispatch(getCartItems({ userId: user._id })).then(data => console.log(data, "cart items response"))
 
     }, [dispatch, user._id])
 

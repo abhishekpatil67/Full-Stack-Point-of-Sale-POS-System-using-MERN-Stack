@@ -22,7 +22,7 @@ const Login = () => {
 
   return (
     <>
-      <div className='flex flex-col text-center items-center bg-muted w-1/2 py-6 gap-8'>
+      <div className='flex flex-col text-center items-center bg-muted lg:w-1/2 w-full py-6 gap-8'>
 
         <div className="text-center pt-8 flex gap-2 flex-col">
           <h1 className='text-3xl font-bold'>Welcome To Shopify</h1>
@@ -34,6 +34,7 @@ const Login = () => {
 
         <Form formControls={loginControls} handleSubmit={handleSubmit} buttonText={"login"} formData={formData} setFormData={setformData} />
         <div>
+          <p><a href="/auth/forgot-password"><span className='text-blue-700 hover:underline mb-2'>Forgot Password ?</span></a></p>
           <p>Don't have an account?</p>
           <p><a href="/auth/register"><span className='text-blue-700 hover:underline'>Sign Up</span></a></p>
         </div>

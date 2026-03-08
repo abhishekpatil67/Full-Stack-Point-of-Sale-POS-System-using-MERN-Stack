@@ -1,5 +1,43 @@
 
 
+export const forgotPasswordControls = [
+    {
+        name: "email",
+        id: "email",
+        placeholder: "Enter Email :",
+        type: "email",
+        componentType: "input",
+        label: "Email :",
+        className: "border border-blue-600"
+    }
+]
+
+
+export const resetPasswordControls = [
+    {
+        name: "password",
+        id: "password",
+        placeholder: "Enter password :",
+        type: "password",
+        componentType: "input",
+        label: "Password :",
+        className: "border border-blue-600"
+    },
+    {
+        name: "confirmPassword",
+        id: "confirmPassword",
+        placeholder: "Retype password :",
+        type: "password",
+        componentType: "input",
+        label: "Confirm Password :",
+        className: "border border-blue-600"
+    },
+
+]
+
+
+
+
 export const loginControls = [
     {
         name: "email",
@@ -21,6 +59,8 @@ export const loginControls = [
     },
 
 ]
+
+
 export const registersControls = [
     {
         name: "userName",
@@ -51,6 +91,8 @@ export const registersControls = [
     },
 
 ]
+
+
 
 
 export const createProductFormConfig = [
