@@ -7,8 +7,10 @@ const CheckAuth = ({ isAuthenticated, user, children }) => {
 
     const location = useLocation()
 
-    if (!isAuthenticated && !(location.pathname.includes("login") || !(location.pathname.includes("register")) || !(location.pathname.includes("verify-email")) || !(location.pathname.includes("forgot-password")))) {
+    if (!isAuthenticated && !(location.pathname.includes("login")))
+    {
         return (<Navigate to="/auth/login" />)
+
     }
 
     if (isAuthenticated && (location.pathname.includes("login") || location.pathname.includes("register"))) {

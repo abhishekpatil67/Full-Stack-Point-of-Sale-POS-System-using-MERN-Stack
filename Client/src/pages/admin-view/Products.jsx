@@ -67,7 +67,7 @@ const AdminProducts = () => {
         }
       })
       :
-      dispatch(createProduct({ ...formData, image: uploadedImageUrl, salesPrice: Number(formData.salesPrice), price: Number(formData.price), totalStock: formData.totalStock })
+      dispatch(createProduct({ ...formData, image: uploadedImageUrl, salesPrice: Number(formData.salesPrice), price: Number(formData.price), totalStock: Number(formData.totalStock) })
       ).then((data) => {
         if (data.payload.success) {
           dispatch(getAllProducts())

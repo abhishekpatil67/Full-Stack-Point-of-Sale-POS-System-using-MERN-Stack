@@ -29,6 +29,9 @@ export const uploadImageToCloudinary = async (req, res) => {
 export const addProductController = async (req, res) => {
 
     console.log(req.body)
+
+
+    
     const result = productSchema.safeParse(req.body)
 
     if (!result.success) {

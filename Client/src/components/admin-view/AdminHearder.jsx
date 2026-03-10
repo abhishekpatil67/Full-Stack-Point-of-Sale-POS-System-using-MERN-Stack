@@ -78,11 +78,10 @@ const AdminHearder = ({ setOpen }) => {
     }
 
     useEffect(() => {
-
-        console.log(user._id, "usestate")
+        
         dispatch(getCartItems({ userId: user._id })).then(data => console.log(data, "cart items response"))
 
-    }, [dispatch, user._id])
+    }, [dispatch])
 
 
 

@@ -78,6 +78,7 @@ export const logoutUser = createAsyncThunk("/auth/logout", async (_, { rejectWit
 
     const response = await axios.post("http://localhost:5000/auth/logout", {}, { withCredentials: true }
     )
+    console.log(response.data,"logout")
     return response.data
 
   } catch (error) {
@@ -115,11 +116,11 @@ export const forgotPasswordThunk = createAsyncThunk("/auth/forgot-password", asy
   }
 })
 
-export const resetPasswordThunk = createAsyncThunk("/auth/reset-password", async ({password,token}, { rejectWithValue }) => {
+export const resetPasswordThunk = createAsyncThunk("/auth/reset-password", async ({ password, token }, { rejectWithValue }) => {
 
   try {
-    console.log(password,"reset pass")
-    const response = await axios.post("http://localhost:5000/auth/reset-password", {password,token}, { withCredentials: true }
+    console.log(password, "reset pass")
+    const response = await axios.post("http://localhost:5000/auth/reset-password", { password, token }, { withCredentials: true }
     )
     return response.data
 
@@ -192,7 +193,7 @@ const authSlice = createSlice({
       state.isLoading = true
     }).addCase(logoutUser.fulfilled, (state) => {
       state.isLoading = false,
-        state.user = false,
+        state.user = null,
         state.isAuthenticated = false
     }).addCase(logoutUser.rejected, (state, action) => {
       state.isLoading = false
@@ -218,17 +219,17 @@ const authSlice = createSlice({
     builder.addCase(forgotPasswordThunk.pending, (state) => {
       state.isLoading = true
     }).addCase(forgotPasswordThunk.fulfilled, (state) => {
-        state.isLoading = false
+      state.isLoading = false
     }).addCase(forgotPasswordThunk.rejected, (state) => {
-        state.isLoading = false
+      state.isLoading = false
     })
 
-       builder.addCase(resetPasswordThunk.pending, (state) => {
+    builder.addCase(resetPasswordThunk.pending, (state) => {
       state.isLoading = true
     }).addCase(resetPasswordThunk.fulfilled, (state) => {
-        state.isLoading = false
+      state.isLoading = false
     }).addCase(resetPasswordThunk.rejected, (state) => {
-        state.isLoading = false
+      state.isLoading = false
     })
 
 
