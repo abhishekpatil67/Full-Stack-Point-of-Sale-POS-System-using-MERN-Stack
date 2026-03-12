@@ -46,7 +46,7 @@ export function OrderProductTile({ product }) {
                         <span className={`text-lg font-semibold text-primary`}>Price</span>
 
                         {
-                            product.salesPrice > 0 ? <span className="text-lg font-bold">{product?.salesPrice}</span> : null
+                            product.salesPrice > 0 ? <span className="text-lg font-bold">₹{product?.salesPrice}</span> : null
                         }
 
                     </div>

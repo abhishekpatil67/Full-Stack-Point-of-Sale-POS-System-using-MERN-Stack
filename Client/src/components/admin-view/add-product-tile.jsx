@@ -19,10 +19,10 @@ export function AdminProductTile({product,setCurrentEditedId, setopenCreateProud
                 <CardContent>
                     <h2 className="text-xl font-bold mb-2 mt-2">{product?.title}</h2>
                     <div className="flex justify-between items-center mb-2">
-                        <span className={`${product?.salesPrice > 0 ? "line-through" : ""} text-lg font-semibold text-primary`}>{product?.price}</span>
+                        <span className={`${product?.salesPrice > 0 ? "line-through" : ""} text-lg font-semibold text-primary`}>₹{product?.price}</span>
 
                         {
-                            product.salesPrice > 0 ? <span className="text-lg font-bold">{product?.price}</span> : null
+                            product.salesPrice > 0 ? <span className="text-lg font-bold">₹{product?.salesPrice}</span> : null
                         }
 
                     </div>

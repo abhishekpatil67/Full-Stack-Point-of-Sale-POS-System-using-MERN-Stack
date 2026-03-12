@@ -109,7 +109,7 @@ const AdminHearder = ({ setOpen }) => {
                     <div className='mt-8 space-y-4'>
                         <div className='flex justify-between'>
                             <span className='font-bold'>Total</span>
-                            <span className='font-bold'>${totalAmount}</span>
+                            <span className='font-bold'>₹{totalAmount}</span>
                         </div>
                     </div>
                     <Button onClick={handleCheckout} className="w-full">Checkout</Button>
