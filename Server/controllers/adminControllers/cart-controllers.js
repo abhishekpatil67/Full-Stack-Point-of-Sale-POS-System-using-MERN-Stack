@@ -110,6 +110,7 @@ export const fetchAllCartItems = async (req, res) => {
 
         if (validItems.length < cart.items.length) {
             cart.items = validItems
+            await cart.save();
         }
 
         const populatedCartItems = validItems.map(item => ({

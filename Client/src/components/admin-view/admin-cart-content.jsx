@@ -26,7 +26,7 @@ const AdminCartContent = ({ cartItem,handleUpdateCartItem,handleDeleteCartItem})
             </div>
 
             <div className='flex flex-col items-end'>
-                <p className='font-semibold'>₹{(cartItem?.price * cartItem.quantity).toFixed(2)}</p>
+                <p className='font-semibold'>₹{(cartItem?.salesPrice * cartItem.quantity).toFixed(2)}</p>
                 <Trash onClick={()=>handleDeleteCartItem(cartItem)} className='cursor-pointer mt-1' size={20} />
             </div>
         </div>

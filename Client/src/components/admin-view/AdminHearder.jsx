@@ -6,6 +6,7 @@ import { logoutUser } from '@/store/authSlice'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet'
 import AdminCartContent from './admin-cart-content'
 import { checkout, deleteCartItems, getCartItems, updateCartItems } from '@/store/admin/cartSlice'
+import { toast } from 'sonner'
 
 
 const AdminHearder = ({ setOpen }) => {
@@ -17,7 +18,7 @@ const AdminHearder = ({ setOpen }) => {
 
 
     const totalAmount = cartItems && cartItems.length > 0 ? cartItems.reduce((sum, currentItem) => {
-        return sum + (currentItem?.price * currentItem?.quantity)
+        return sum + (currentItem?.salesPrice * currentItem?.quantity)
 
     }, 0) : 0
 
@@ -64,6 +65,15 @@ const AdminHearder = ({ setOpen }) => {
     const handleCheckout = () => {
         dispatch(checkout({ userId: user._id })).then((data) => {
             console.log(data, "checoutres")
+
+            if (!data.payload.success) {
+                toast(data?.payload?.message,
+                    {
+                        action: {
+                            label: "Ok",
+                        },
+                    })
+            }
             if (data.payload.success) {
                 dispatch(getCartItems({ userId: user._id }))
                 setOpenAddToCartSheet(false)
@@ -72,13 +82,12 @@ const AdminHearder = ({ setOpen }) => {
                     "_blank"
                 );
             }
-        }).catch((error) => {
-            console.log(error)
+
         })
     }
 
     useEffect(() => {
-        
+
         dispatch(getCartItems({ userId: user._id })).then(data => console.log(data, "cart items response"))
 
     }, [dispatch])
