@@ -57,7 +57,7 @@ const VerifyEmail = () => {
                         />
                     </div>
                     {/* <h1 className='text-3xl font-bold'>Welcome To <span className="text-[#102A5C]">Abhi</span><span className="text-[#54B948]">POS</span></h1> */}
-                    <p className='text-[14px]'>An Platform Facilitating Business Billings And Inventory Management.
+                    <p className='text-[14px]'>Smart Retail Management & Billing System
                     </p>
                 </div>
 
