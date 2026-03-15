@@ -24,8 +24,12 @@ function App() {
 
   useEffect(() => {
     dispatch(checkLoggedIn())
-    dispatch(getCartItems(user?._id))
-  }, [dispatch, user?._id])
+    if(isAuthenticated)
+    {
+      dispatch(getCartItems(user?._id))
+
+    }
+  }, [dispatch, user?._id,isAuthenticated])
   
   return (
     <>
